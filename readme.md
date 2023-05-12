@@ -12,7 +12,7 @@ bootstrapping a new laptop should be easy.
 - boot into usb:
   - if nvidia discrete gpu, at grub hit "e", append "nomodeset" to kernel cmdline params, hit "C-x"
   - `pacman -Sy archlinux-keyring`
-  - `bash` [arch-install-ext4]
+  - `bash` [arch-install-ext4](./arch-install-ext4)
 
 - boot into arch
   - `bash` [arch-dev-setup](./arch-dev-setup)
