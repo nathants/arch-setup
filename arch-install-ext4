@@ -131,8 +131,7 @@ pacman -S --noconfirm --needed \
     linux-lts-headers \
     nvidia-dkms \
     nvidia-settings \
-    nvidia-utils \
-    amd-ucode
+    nvidia-utils
 
 echo -n 'what is your username? '
 read username
