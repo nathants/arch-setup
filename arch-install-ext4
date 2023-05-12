@@ -1,0 +1,169 @@
+#!/bin/bash
+set -xeuo pipefail
+
+locale=en_US
+timezone=US/Hawaii
+
+disks=$(fdisk -l | grep 'Disk /dev/'|cut -d' ' -f2-3|column -t)
+echo "$disks"
+echo -n 'which device do you want to reformat (and completely erase)? '
+read device
+echo using device: $device
+if ! echo "$disks" | awk '{print $1}' | grep $device &>/dev/null; then
+	echo no such device: $device
+	exit 1
+fi
+(
+    # gpt table
+	echo g
+	# efi partition
+	echo n
+	echo 1
+	echo
+	echo +256M
+	echo t
+	echo 1
+	# main partition
+	echo n
+	echo 2
+	echo
+	echo
+	echo
+	echo w
+) | fdisk -w always -W always $device
+
+if echo $device | grep nvme; then
+    device=${device}p
+fi
+
+mkfs.fat -F32 ${device}1
+
+    while true; do
+        cryptsetup -q -v luksFormat --type luks2 --key-size=512 ${device}2
+        cryptsetup open ${device}2 cryptroot && break
+    done
+
+    mkfs.ext4 /dev/mapper/cryptroot
+    mount /dev/mapper/cryptroot /mnt
+
+    mkdir -p /mnt/boot
+    mount ${device}1 /mnt/boot
+
+    mkdir -p /mnt/etc
+    echo "${device}1 /boot vfat defaults 0 2" > /mnt/etc/fstab
+    echo "/dev/mapper/cryptroot / ext4 defaults 1 1" >> /mnt/etc/fstab
+
+    rm -fv /mnt/boot/*linux* /mnt/boot/*.img
+
+    echo '
+Server = https://mirrors.ocf.berkeley.edu/archlinux/$repo/os/$arch
+Server = https://mirrors.rit.edu/archlinux/$repo/os/$arch
+Server = https://mirrors.rutgers.edu/archlinux/$repo/os/$arch
+Server = https://mirrors.lug.mtu.edu/archlinux/$repo/os/$arch
+Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch
+Server = https://archlinux.surlyjake.com/archlinux/$repo/os/$arch
+Server = https://arlm.tyzoid.com/$repo/os/$arch
+Server = https://arch.mirror.constant.com/$repo/os/$arch
+Server = https://mirror.dc02.hackingand.coffee/arch/$repo/os/$arch
+Server = https://mirror.hackingand.coffee/arch/$repo/os/$arch
+Server = https://mirror.dal10.us.leaseweb.net/archlinux/$repo/os/$arch
+Server = https://mirror.sfo12.us.leaseweb.net/archlinux/$repo/os/$arch
+Server = https://mirror.wdc1.us.leaseweb.net/archlinux/$repo/os/$arch
+Server = https://mirror.lty.me/archlinux/$repo/os/$arch
+Server = https://mirror.kaminski.io/archlinux/$repo/os/$arch
+Server = https://mirrors.sonic.net/archlinux/$repo/os/$arch
+Server = https://mirrors.sorengard.com/archlinux/$repo/os/$arch
+Server = https://arch.mirror.square-r00t.net/$repo/os/$arch
+Server = https://mirror.stephen304.com/archlinux/$repo/os/$arch
+Server = https://mirrors.xtom.com/archlinux/$repo/os/$arch
+' > /etc/pacman.d/mirrorlist
+
+    timedatectl set-ntp true
+
+    pacstrap /mnt base base-devel
+
+    (sed "s:TIMEZONE:$timezone:g" | sed "s:OS_DEVICE:${device}2:g" | sed "s/LOCALE/$locale/g" > /mnt/bootstrap.sh ) <<'EOF'
+#!/bin/bash
+set -xeuo pipefail
+ln -sf /usr/share/zoneinfo/TIMEZONE /etc/localtime
+hwclock --systohc
+echo LOCALE.UTF-8 UTF-8 >> /etc/locale.gen
+locale-gen
+echo LC_ALL=C > /etc/locale.conf
+echo LANG=LOCALE.UTF-8 >> /etc/locale.conf
+echo -n 'what is the hostname? '
+read hostname
+echo $hostname > /etc/hostname
+echo 127.0.0.1 localhost > /etc/hosts
+echo 127.0.1.1 $hostname.localdomain $hostname >> /etc/hosts
+
+pacman -Syy
+
+pacman -S --noconfirm mkinitcpio
+
+pacman -S --noconfirm --needed \
+    awk \
+    binutils \
+    coreutils \
+    curl \
+    dhcpcd \
+    efibootmgr \
+    grub \
+    efitools \
+    efivar \
+    git \
+    grep \
+    iputils \
+    net-tools \
+    openssh \
+    openssl \
+    sbsigntools \
+    sed \
+    sudo \
+    util-linux \
+    mkinitcpio \
+    vim \
+    wget \
+    wpa_supplicant \
+    linux \
+    linux-headers \
+    linux-lts \
+    linux-lts-headers \
+    nvidia-dkms \
+    nvidia-settings \
+    nvidia-utils \
+    amd-ucode
+
+echo -n 'what is your username? '
+read username
+useradd -m -s /bin/bash $username
+while true; do passwd $username && break; done
+echo "$username ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+passwd -l root
+
+
+uuid=$(blkid | grep OS_DEVICE | awk '{print $2}' | tr -d '"')
+sed -i '/GRUB_CMDLINE_LINUX=/d' /etc/default/grub
+echo 'GRUB_CMDLINE_LINUX="cryptdevice=DEVICE_UUID:cryptroot root=/dev/mapper/cryptroot nomodeset"' | sed "s/DEVICE_UUID/${uuid}/" >> /etc/default/grub
+
+sed -i '/GRUB_DEFAULT=/d' /etc/default/grub
+echo 'GRUB_DEFAULT=2' >> /etc/default/grub
+
+sed -i '/GRUB_DISABLE_SUBMENU=/d' /etc/default/grub
+echo 'GRUB_DISABLE_SUBMENU=y' >> /etc/default/grub
+
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+
+sed -i 's/keyboard/encrypt keyboard/' /etc/mkinitcpio.conf
+mkinitcpio -p linux
+mkinitcpio -p linux-lts
+
+EOF
+
+    arch-chroot /mnt bash bootstrap.sh
+    arch-chroot /mnt rm bootstrap.sh
+    umount -R /mnt
+    cryptsetup close cryptroot
+
+echo success! you can now reboot
