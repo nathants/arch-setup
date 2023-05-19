@@ -99,7 +99,7 @@ echo 127.0.1.1 $hostname.localdomain $hostname >> /etc/hosts
 
 pacman -Syy
 
-pacman -S --noconfirm mkinitcpio
+pacman -S --noconfirm mkinitcpio archlinux-keyring
 
 pacman -S --noconfirm --needed \
     awk \
