@@ -48,6 +48,7 @@ packages="
  pacman-contrib
  patch
  pkg-config
+ power-profiles-daemon
  python-virtualenv
  qrencode
  ripgrep
