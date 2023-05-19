@@ -1,8 +1,13 @@
 #!/bin/bash
 set -xeuo pipefail
 
-locale=en_US
-timezone=US/Hawaii
+echo -n 'which locale do you want to use? ie en_US. '
+read locale
+echo using locale: $locale
+
+echo -n 'which timezone do you want to use? ie US/Hawaii. '
+read timezone
+echo using timezone: $timezone
 
 disks=$(fdisk -l | grep 'Disk /dev/'|cut -d' ' -f2-3|column -t)
 echo "$disks"
