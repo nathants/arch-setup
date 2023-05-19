@@ -20,7 +20,7 @@ fi
 	echo n
 	echo 1
 	echo
-	echo +256M
+	echo +2G
 	echo t
 	echo 1
 	# main partition
