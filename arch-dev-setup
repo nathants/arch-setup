@@ -25,6 +25,7 @@ packages="
  gcc
  git
  go
+ gtk2
  hdparm
  htop
  hwinfo
