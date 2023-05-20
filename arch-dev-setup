@@ -672,8 +672,8 @@ mkdir -p ~/opt
     git clone https://aur.archlinux.org/nerd-fonts-inconsolata.git
     cd nerd-fonts-inconsolata
     git checkout 6bd470b3a88c400d775933430fe4f1ccbed9933a
-    makepkg -s
-    /usr/bin/sudo pacman -U *.zst
+    makepkg -s --noconfirm
+    /usr/bin/sudo pacman --noconfirm -U *.zst
 )
 
 (
@@ -681,6 +681,6 @@ mkdir -p ~/opt
     git clone https://aur.archlinux.org/font-symbola.git
     cd font-symbola
     git checkout a0333f8abea9edadc68ce849590975a941aad15f
-    makepkg -s
-    /usr/bin/sudo pacman -U *.zst
+    makepkg -s --noconfirm
+    /usr/bin/sudo pacman --noconfirm -U *.zst
 )
