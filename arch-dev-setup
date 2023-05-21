@@ -30,6 +30,7 @@ packages="
  htop
  hwinfo
  iw
+ libsodium
  libxft
  libxinerama
  libxml2
