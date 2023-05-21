@@ -39,6 +39,7 @@ packages="
  lz4
  maim
  make
+ mold
  net-tools
  npm
  nvidia-dkms
