@@ -57,6 +57,7 @@ packages="
  qrencode
  ripgrep
  rsync
+ rclone
  rust-analyzer
  sudo
  the_silver_searcher
