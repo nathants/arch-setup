@@ -662,6 +662,8 @@ EndSection
 # confirm with xinput list-props {1..50} 2>/dev/null | fgrep 'libinput Accel Profile Enabled ('
 # should see: 0, 1, 0
 
+echo 'if black lines appear during gameplay, add this to xorg.conf section device: Option "FlatPanelProperties" "Dithering = disabled"'
+
 echo blacklist pcspkr | /usr/bin/sudo tee /etc/modprobe.d/nobeep.conf
 
 # handle nvidia cryptsetup shutdown nonsense
