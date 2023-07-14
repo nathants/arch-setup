@@ -54,6 +54,7 @@ mkfs.fat -F32 ${device}1
     mkdir -p /mnt/boot
     mount ${device}1 /mnt/boot
 
+    # TODO consider using uuid instead /dev/nvme* for fstab, since laptops sometimes swap the order of devices
     mkdir -p /mnt/etc
     echo "${device}1 /boot vfat defaults 0 2" > /mnt/etc/fstab
     echo "/dev/mapper/cryptroot / ext4 defaults 1 1" >> /mnt/etc/fstab
