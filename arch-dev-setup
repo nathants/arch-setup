@@ -17,6 +17,7 @@ packages="
  cuda
  difftastic
  dnsutils
+ entr
  emacs-nox
  expect
  fakeroot
