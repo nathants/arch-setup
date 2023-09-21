@@ -164,8 +164,8 @@ index 1c0b587..bf57741 100644
  static const int topbar             = 1;        /* 0 means bottom bar */
 -static const char *fonts[]          = { "monospace:size=10" };
 -static const char dmenufont[]       = "monospace:size=10";
-+static const char *fonts[]          = { "Inconsolata:size=20" };
-+static const char dmenufont[]       = "Inconsolata:size=20";
++static const char *fonts[]          = { "Inconsolata Nerd Font:size=20" };
++static const char dmenufont[]       = "Inconsolata Nerd Font:size=20";
 +
  static const char col_gray1[]       = "#222222";
  static const char col_gray2[]       = "#444444";
