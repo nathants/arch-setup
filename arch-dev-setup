@@ -55,6 +55,8 @@ packages="
  pkg-config
  power-profiles-daemon
  python-virtualenv
+ python-pip
+ python-setuptools
  qrencode
  ripgrep
  rsync
@@ -103,7 +105,6 @@ cd ~
     fi
 	(
 	    cd agr
-        /usr/bin/sudo python -m ensurepip
 	    /usr/bin/sudo python setup.py develop
 	)
 
