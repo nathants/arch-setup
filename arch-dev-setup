@@ -100,6 +100,32 @@ cd ~
     mkdir -p opt
     cd opt
 
+    if [ ! -d nerd-fonts-inconsolata ]; then
+	    git clone https://aur.archlinux.org/nerd-fonts-inconsolata.git
+    fi
+    (
+	    cd nerd-fonts-inconsolata
+	    git add . && git reset --hard
+        git checkout master
+        git pull
+        git checkout 6bd470b3a88c400d775933430fe4f1ccbed9933a
+        makepkg -s --noconfirm
+        /usr/bin/sudo pacman --noconfirm -U *.zst
+    )
+
+    if [ ! -d font-symbola ]; then
+	    git clone https://aur.archlinux.org/font-symbola.git
+    fi
+    (
+	    cd font-symbola
+	    git add . && git reset --hard
+        git checkout master
+        git pull
+        git checkout a0333f8abea9edadc68ce849590975a941aad15f
+        makepkg -s --noconfirm
+        /usr/bin/sudo pacman --noconfirm -U *.zst
+    )
+
     if [ ! -d agr ]; then
 	    git clone https://github.com/nathants/agr
     fi
@@ -673,23 +699,3 @@ echo '#!/bin/sh
 # remove nvidia modules
 /usr/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm && /usr/bin/modprobe -r nvidia
 ' | /usr/bin/sudo tee /usr/lib/systemd/system-shutdown/nvidia.shutdown
-
-mkdir -p ~/opt
-
-(
-    cd ~/opt
-    git clone https://aur.archlinux.org/nerd-fonts-inconsolata.git
-    cd nerd-fonts-inconsolata
-    git checkout 6bd470b3a88c400d775933430fe4f1ccbed9933a
-    makepkg -s --noconfirm
-    /usr/bin/sudo pacman --noconfirm -U *.zst
-)
-
-(
-    cd ~/opt
-    git clone https://aur.archlinux.org/font-symbola.git
-    cd font-symbola
-    git checkout a0333f8abea9edadc68ce849590975a941aad15f
-    makepkg -s --noconfirm
-    /usr/bin/sudo pacman --noconfirm -U *.zst
-)
