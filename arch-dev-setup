@@ -17,8 +17,8 @@ packages="
  cuda
  difftastic
  dnsutils
- entr
  emacs-nox
+ entr
  expect
  fakeroot
  freetype2
@@ -54,16 +54,18 @@ packages="
  patch
  pkg-config
  power-profiles-daemon
- python-virtualenv
+ python-matplotlib
  python-pip
  python-setuptools
+ python-virtualenv
  qrencode
+ rclone
  ripgrep
  rsync
- rclone
  rust-analyzer
  sudo
  the_silver_searcher
+ tk
  tmux
  tree
  udisks2
