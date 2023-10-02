@@ -87,6 +87,8 @@ packages="
  xsel
  zbar
  zip
+ pulseaudio
+ pulseaudio-alsa
 "
 /usr/bin/sudo pacman --noconfirm --needed -S $packages
 
@@ -95,6 +97,11 @@ packages="
 
 /usr/bin/sudo systemctl start systemd-timesyncd
 /usr/bin/sudo systemctl enable systemd-timesyncd
+
+systemctl --user restart pulseaudio.socket
+systemctl --user enable pulseaudio.socket
+systemctl --user restart pulseaudio.service
+systemctl --user enable pulseaudio.service
 
 cd ~
 
