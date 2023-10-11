@@ -92,6 +92,8 @@ packages="
 "
 /usr/bin/sudo pacman --noconfirm --needed -S $packages
 
+/usr/bin/sudo systemctl enable fstrim.timer
+
 /usr/bin/sudo systemctl start cronie
 /usr/bin/sudo systemctl enable cronie
 
