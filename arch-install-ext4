@@ -44,7 +44,7 @@ fi
 mkfs.fat -F32 ${device}1
 
     while true; do
-        cryptsetup -q -v luksFormat --type luks2 --key-size=512 ${device}2
+        cryptsetup -v luksFormat --type luks2 --key-size=512 --perf-no_read_workqueue --perf-no_write_workqueue ${device}2
         cryptsetup open ${device}2 cryptroot && break
     done
 
