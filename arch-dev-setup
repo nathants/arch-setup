@@ -89,6 +89,7 @@ packages="
  zip
  pulseaudio
  pulseaudio-alsa
+ arch-install-scripts
 "
 /usr/bin/sudo pacman --noconfirm --needed -S $packages
 
