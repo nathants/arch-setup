@@ -22,7 +22,6 @@ packages="
  expect
  fakeroot
  freetype2
- fzf
  gcc
  git
  go
