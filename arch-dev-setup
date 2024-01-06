@@ -74,6 +74,7 @@ packages="
  words
  wpa_supplicant
  xclip
+ xorg-xbacklight
  xorg-server
  xorg-twm
  xorg-xclock
