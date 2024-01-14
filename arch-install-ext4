@@ -153,7 +153,7 @@ passwd -l root
 
 uuid=$(blkid | grep OS_DEVICE | awk '{print $2}' | tr -d '"')
 sed -i '/GRUB_CMDLINE_LINUX=/d' /etc/default/grub
-echo 'GRUB_CMDLINE_LINUX="cryptdevice=DEVICE_UUID:cryptroot root=/dev/mapper/cryptroot nomodeset"' | sed "s/DEVICE_UUID/${uuid}/" >> /etc/default/grub
+echo 'GRUB_CMDLINE_LINUX="cryptdevice=DEVICE_UUID:cryptroot root=/dev/mapper/cryptroot"' | sed "s/DEVICE_UUID/${uuid}/" >> /etc/default/grub
 
 sed -i '/GRUB_DEFAULT=/d' /etc/default/grub
 echo 'GRUB_DEFAULT=2' >> /etc/default/grub
