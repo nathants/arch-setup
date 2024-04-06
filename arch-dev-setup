@@ -49,6 +49,7 @@ packages="
  nvidia-utils
  openimagedenoise
  openssh
+ pavucontrol
  pacman-contrib
  patch
  pkg-config
