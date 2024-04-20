@@ -9,12 +9,12 @@ echo -n 'which timezone do you want to use? ie US/Hawaii. '
 read timezone
 echo using timezone: $timezone
 
-disks=$(fdisk -l | grep 'Disk /dev/'|cut -d' ' -f2-3|column -t)
+disks=$(fdisk -l | grep 'Disk /dev/' | cut -d, -f1 | tr -d : | column -t)
 echo "$disks"
 echo -n 'which device do you want to reformat (and completely erase)? '
 read device
 echo using device: $device
-if ! echo "$disks" | awk '{print $1}' | grep $device &>/dev/null; then
+if ! echo "$disks" | awk '{print $2}' | grep $device &>/dev/null; then
 	echo no such device: $device
 	exit 1
 fi
