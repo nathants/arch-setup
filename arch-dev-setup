@@ -70,6 +70,7 @@ packages="
  tree
  udisks2
  unzip
+ unbound
  vim
  wget
  words
