@@ -1,13 +1,14 @@
 #!/bin/bash
 set -xeuo pipefail
 
-/usr/bin/sudo whoami # check for sudo
+sudo whoami # check for sudo
 
 df | grep /boot
 
 packages="
  acpi
  alsa-utils
+ arch-install-scripts
  automake
  bash-completion
  ccache
@@ -48,12 +49,15 @@ packages="
  nvidia-settings
  nvidia-utils
  openimagedenoise
+ openresolv
  openssh
- pavucontrol
  pacman-contrib
  patch
+ pavucontrol
  pkg-config
  power-profiles-daemon
+ pulseaudio
+ pulseaudio-alsa
  python-matplotlib
  python-pip
  python-setuptools
@@ -69,16 +73,16 @@ packages="
  tmux
  tree
  udisks2
- unzip
  unbound
+ unzip
  vim
  wget
  words
  wpa_supplicant
  xclip
- xorg-xbacklight
  xorg-server
  xorg-twm
+ xorg-xbacklight
  xorg-xclock
  xorg-xdpyinfo
  xorg-xinit
@@ -89,19 +93,16 @@ packages="
  xsel
  zbar
  zip
- pulseaudio
- pulseaudio-alsa
- arch-install-scripts
 "
-/usr/bin/sudo pacman --noconfirm --needed -S $packages
+sudo pacman --noconfirm --needed -S $packages
 
-/usr/bin/sudo systemctl enable fstrim.timer
+sudo systemctl enable fstrim.timer
 
-/usr/bin/sudo systemctl start cronie
-/usr/bin/sudo systemctl enable cronie
+sudo systemctl start cronie
+sudo systemctl enable cronie
 
-/usr/bin/sudo systemctl start systemd-timesyncd
-/usr/bin/sudo systemctl enable systemd-timesyncd
+sudo systemctl start systemd-timesyncd
+sudo systemctl enable systemd-timesyncd
 
 systemctl --user restart pulseaudio.socket
 systemctl --user enable pulseaudio.socket
@@ -124,7 +125,7 @@ cd ~
         git pull
         git checkout 6bd470b3a88c400d775933430fe4f1ccbed9933a
         makepkg -sf --noconfirm
-        /usr/bin/sudo pacman --noconfirm -U *.zst
+        sudo pacman --noconfirm -U *.zst
     )
 
     if [ ! -d font-symbola ]; then
@@ -137,7 +138,7 @@ cd ~
         git pull
         git checkout a0333f8abea9edadc68ce849590975a941aad15f
         makepkg -sf --noconfirm
-        /usr/bin/sudo pacman --noconfirm -U *.zst
+        sudo pacman --noconfirm -U *.zst
     )
 
     if [ ! -d agr ]; then
@@ -145,7 +146,7 @@ cd ~
     fi
 	(
 	    cd agr
-	    /usr/bin/sudo python setup.py develop
+	    sudo python setup.py develop
 	)
 
     if [ ! -d slock ]; then
@@ -160,7 +161,7 @@ cd ~
         agr -y nogroup nobody
         sed -i '/XBell/d' slock.c
         make
-        /usr/bin/sudo make install
+        sudo make install
         echo '
 [Unit]
 Description=Lock X session using slock for user %i
@@ -174,10 +175,10 @@ ExecStart=/usr/local/bin/slock
 
 [Install]
 WantedBy=sleep.target
-' | /usr/bin/sudo tee /etc/systemd/system/slock@.service
-        /usr/bin/sudo systemctl daemon-reload
+' | sudo tee /etc/systemd/system/slock@.service
+        sudo systemctl daemon-reload
         user=$(whoami)
-        /usr/bin/sudo systemctl enable slock@$user
+        sudo systemctl enable slock@$user
     )
 
     if [ ! -d dwm ]; then
@@ -460,7 +461,7 @@ EOF
 
 	    make clean
 	    make
-	    /usr/bin/sudo make install
+	    sudo make install
 
         echo '
 ! capslock to alt
@@ -601,7 +602,7 @@ EOF
 
 	    make clean
 	    make
-	    /usr/bin/sudo make install
+	    sudo make install
     )
 
     if [ ! -d st ]; then
@@ -654,14 +655,14 @@ EOF
 
 	    make clean
 	    make
-	    /usr/bin/sudo make install
+	    sudo make install
     )
 )
 
 # (
     # cd /usr/share/fonts/TTF
     #if ag medium; then
-    #    /usr/bin/sudo agr -y -n medium bold
+    #    sudo agr -y -n medium bold
     #fi
 # )
 
@@ -673,7 +674,7 @@ DefaultTimeoutStopSec=30s
 "
     for opt in $opts; do
         if ! ag "^$opt" /etc/systemd/system.conf; then
-            echo $opt | /usr/bin/sudo tee -a /etc/systemd/system.conf
+            echo $opt | sudo tee -a /etc/systemd/system.conf
         fi
     done
 )
@@ -681,7 +682,7 @@ DefaultTimeoutStopSec=30s
 curl --fail --no-progress-meter https://raw.githubusercontent.com/nathants/bootstraps/6b4127456411dba7e7db5f9416ea5a57df1d254e/limits.sh | bash
 curl --fail --no-progress-meter https://raw.githubusercontent.com/nathants/bootstraps/6b4127456411dba7e7db5f9416ea5a57df1d254e/sshd.sh | bash
 
-/usr/bin/sudo sed -i -r 's/^#(Handle[^=]+).*/\1=suspend/' /etc/systemd/logind.conf
+sudo sed -i -r 's/^#(Handle[^=]+).*/\1=suspend/' /etc/systemd/logind.conf
 
 if ! cat /etc/X11/xorg.conf | grep DontZap; then
 echo '
@@ -689,7 +690,7 @@ Section "ServerFlags"
     Option "DontVTSwitch" "True"
     Option "DontZap"      "True"
 EndSection
-' | /usr/bin/sudo tee -a /etc/X11/xorg.conf
+' | sudo tee -a /etc/X11/xorg.conf
 fi
 
 echo '
@@ -700,16 +701,16 @@ Section "InputClass"
             Option "AccelProfile" "flat"
         	Option "AccelSpeed" "0"
 EndSection
-' | /usr/bin/sudo tee /usr/share/X11/xorg.conf.d/95-mouse-accel.conf
+' | sudo tee /usr/share/X11/xorg.conf.d/95-mouse-accel.conf
 # confirm with xinput list-props {1..50} 2>/dev/null | fgrep 'libinput Accel Profile Enabled ('
 # should see: 0, 1, 0
 
 echo 'if black lines appear during gameplay, add this to xorg.conf section device: Option "FlatPanelProperties" "Dithering = disabled"'
 
-echo blacklist pcspkr | /usr/bin/sudo tee /etc/modprobe.d/nobeep.conf
+echo blacklist pcspkr | sudo tee /etc/modprobe.d/nobeep.conf
 
 # handle nvidia cryptsetup shutdown nonsense
 echo '#!/bin/sh
 # remove nvidia modules
 /usr/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm && /usr/bin/modprobe -r nvidia
-' | /usr/bin/sudo tee /usr/lib/systemd/system-shutdown/nvidia.shutdown
+' | sudo tee /usr/lib/systemd/system-shutdown/nvidia.shutdown
