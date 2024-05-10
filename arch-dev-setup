@@ -56,8 +56,11 @@ packages="
  pavucontrol
  pkg-config
  power-profiles-daemon
- pulseaudio
- pulseaudio-alsa
+ pipewire
+ pipewire-pulse
+ pipewire-alsa
+ pipewire-jack
+ pavucontrol
  python-matplotlib
  python-pip
  python-setuptools
@@ -104,10 +107,10 @@ sudo systemctl enable cronie
 sudo systemctl start systemd-timesyncd
 sudo systemctl enable systemd-timesyncd
 
-systemctl --user restart pulseaudio.socket
-systemctl --user enable pulseaudio.socket
-systemctl --user restart pulseaudio.service
-systemctl --user enable pulseaudio.service
+systemctl --user enable pipewire.socket
+systemctl --user start pipewire.socket
+systemctl --user enable pipewire-pulse.socket
+systemctl --user start pipewire-pulse.socket
 
 cd ~
 
