@@ -56,7 +56,9 @@ packages="
  pavucontrol
  pkg-config
  power-profiles-daemon
+ libpipewire
  pipewire
+ pipewire-docs
  pipewire-pulse
  pipewire-alsa
  pipewire-jack
