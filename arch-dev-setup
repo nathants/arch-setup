@@ -685,7 +685,7 @@ DefaultTimeoutStopSec=30s
 )
 
 curl --fail --no-progress-meter https://raw.githubusercontent.com/nathants/bootstraps/6b4127456411dba7e7db5f9416ea5a57df1d254e/limits.sh | bash
-curl --fail --no-progress-meter https://raw.githubusercontent.com/nathants/bootstraps/6b4127456411dba7e7db5f9416ea5a57df1d254e/sshd.sh | bash
+curl --fail --no-progress-meter https://raw.githubusercontent.com/nathants/bootstraps/cdbd97781df27bcdbb144a40bc63e57e72cca744/sshd.sh | bash
 
 sudo sed -i -r 's/^#(Handle[^=]+).*/\1=suspend/' /etc/systemd/logind.conf
 
