@@ -109,6 +109,7 @@ pacman -Syy
 pacman -S --noconfirm mkinitcpio archlinux-keyring
 
 pacman -S --noconfirm --needed \
+    linux-firmware \
     awk \
     binutils \
     coreutils \

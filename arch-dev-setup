@@ -568,9 +568,15 @@ Timer = Memory_Used_(GPU_0),Yes,3000
 
         echo '
  xmodmap ~/.xmodmap
+ xrdb -merge ~/.Xresources
  nvidia-settings --load-config-only || true
  exec dwm
 ' > ~/.xinitrc
+
+        echo '
+Xcursor.theme: default
+Xcursor.size: 16
+' > ~/.Xresources
 
     )
 
