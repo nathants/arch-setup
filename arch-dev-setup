@@ -31,6 +31,7 @@ packages="
  htop
  hwinfo
  iw
+ libpipewire
  libsodium
  libxft
  libxinerama
@@ -54,15 +55,14 @@ packages="
  pacman-contrib
  patch
  pavucontrol
+ pavucontrol
+ pipewire
+ pipewire-alsa
+ pipewire-docs
+ pipewire-jack
+ pipewire-pulse
  pkg-config
  power-profiles-daemon
- libpipewire
- pipewire
- pipewire-docs
- pipewire-pulse
- pipewire-alsa
- pipewire-jack
- pavucontrol
  python-matplotlib
  python-pip
  python-setuptools
@@ -93,6 +93,7 @@ packages="
  xorg-xinit
  xorg-xinput
  xorg-xmodmap
+ xorg-xset
  xorg-xsetroot
  xprintidle
  xsel
@@ -129,19 +130,6 @@ cd ~
         git checkout master
         git pull
         git checkout 6bd470b3a88c400d775933430fe4f1ccbed9933a
-        makepkg -sf --noconfirm
-        sudo pacman --noconfirm -U *.zst
-    )
-
-    if [ ! -d font-symbola ]; then
-	    git clone https://aur.archlinux.org/font-symbola.git
-    fi
-    (
-	    cd font-symbola
-	    git add . && git reset --hard
-        git checkout master
-        git pull
-        git checkout a0333f8abea9edadc68ce849590975a941aad15f
         makepkg -sf --noconfirm
         sudo pacman --noconfirm -U *.zst
     )
