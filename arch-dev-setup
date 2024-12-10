@@ -26,12 +26,14 @@ packages="
  gcc
  git
  go
+ gperftools
  gtk2
  hdparm
  htop
  hwinfo
  iw
  libpipewire
+ libsndfile
  libsodium
  libxft
  libxinerama
@@ -72,6 +74,7 @@ packages="
  ripgrep
  rsync
  rust-analyzer
+ sdl2
  sudo
  the_silver_searcher
  tk
@@ -97,6 +100,7 @@ packages="
  xorg-xsetroot
  xprintidle
  xsel
+ yaml-cpp
  zbar
  zip
 "
