@@ -8,23 +8,31 @@ df | grep /boot
 packages="
  acpi
  alsa-utils
+ arandr
  arch-install-scripts
  automake
  bash-completion
  ccache
+ clang
  cpupower
  cronie
  cuda
- cuda
  difftastic
+ discord
  dnsutils
  emacs-nox
  entr
  expect
  fakeroot
+ fastfetch
+ feh
+ firefox
  freetype2
  gcc
+ gdb
  git
+ glfw
+ gnome-disk-utility
  go
  gperftools
  gtk2
@@ -32,6 +40,7 @@ packages="
  htop
  hwinfo
  iw
+ keepassxc
  libpipewire
  libsndfile
  libsodium
@@ -40,23 +49,25 @@ packages="
  libxml2
  libxslt
  linux-lts
+ lldb
  lsof
  lz4
  maim
  make
  man
  mold
+ mousepad
  net-tools
  npm
  nvidia-dkms
  nvidia-settings
  nvidia-utils
+ obs-studio
  openimagedenoise
  openresolv
  openssh
  pacman-contrib
  patch
- pavucontrol
  pavucontrol
  pipewire
  pipewire-alsa
@@ -73,21 +84,26 @@ packages="
  rclone
  ripgrep
  rsync
+ rtkit
  rust-analyzer
  sdl2
+ spotify-launcher
  sudo
  the_silver_searcher
+ thunar
  tk
  tmux
  tree
  udisks2
  unbound
  unzip
+ util-linux
  vim
  wget
  words
  wpa_supplicant
  xclip
+ xdotool
  xorg-server
  xorg-twm
  xorg-xbacklight
@@ -120,6 +136,19 @@ systemctl --user enable pipewire-pulse.socket
 systemctl --user start pipewire-pulse.socket
 
 cd ~
+
+curl https://better-game.network/dwm_bg.png > ~/.bg.png
+
+echo '#!/bin/bash
+maim -s >/tmp/screenshot.png' | sudo tee "/usr/local/bin/screenshot"
+
+echo '#!/bin/bash
+maim >/tmp/screenshot.png' | sudo tee "/usr/local/bin/screenshot-fullscreen"
+
+echo '#!/bin/bash
+mousepad "$@"' | sudo tee "/usr/local/bin/textedit"
+
+sudo chmod +x /usr/local/bin/*
 
 (
     mkdir -p opt
@@ -561,7 +590,9 @@ Timer = Memory_Used_(GPU_0),Yes,3000
         echo '
  xmodmap ~/.xmodmap
  xrdb -merge ~/.Xresources
+ feh --bg-scale ~/.bg.png
  nvidia-settings --load-config-only || true
+
  exec dwm
 ' > ~/.xinitrc
 
@@ -717,3 +748,5 @@ echo '#!/bin/sh
 # remove nvidia modules
 /usr/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm && /usr/bin/modprobe -r nvidia
 ' | sudo tee /usr/lib/systemd/system-shutdown/nvidia.shutdown
+
+echo type and hit enter: startx

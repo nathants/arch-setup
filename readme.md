@@ -21,7 +21,8 @@ you will use your bios boot disk chooser to choose boot disk at startup.
 ## how
 
 - on linux, make arch [iso](https://archlinux.org/download/) usb
-  - `sudo dd bs=4M if=./archlinux-YYY.MM.DD-x86_64.iso of=/dev/sdX status=progress oflag=sync`
+  - update `if=` and `of=` with real values
+  - `sudo dd bs=4M if=./archlinux-YYYY.MM.DD-x86_64.iso of=/dev/sdX status=progress oflag=sync`
 
 - you can also use [etcher](https://github.com/balena-io/etcher/releases) or [rufus](https://github.com/pbatard/rufus/releases) to make the arch usb from windows
 
@@ -33,3 +34,8 @@ you will use your bios boot disk chooser to choose boot disk at startup.
 
 - boot into arch
   - `bash` [arch-dev-setup](./arch-dev-setup)
+
+- type `startx`
+
+- the background image is the docs from [better.game](https://better.game) reboot-to-play
+  - note: `shift+f6` does not work, that is reboot-to-play only. to quit everything use `win+shift+q`
