@@ -1,6 +1,6 @@
 # arch-setup
 
-![](https://github.com/nathants/arch-setup/raw/master/gif/arch.gif)
+![](https://github.com/nathants/arch-setup/raw/master/arch.gif)
 
 ## why
 
