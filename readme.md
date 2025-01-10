@@ -1,5 +1,7 @@
 # arch-setup
 
+![](https://github.com/nathants/arch-setup/raw/master/gif/arch.gif)
+
 ## why
 
 bootstrapping a new computer should be easy.
