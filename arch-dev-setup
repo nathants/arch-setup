@@ -58,6 +58,7 @@ packages="
  mold
  mousepad
  net-tools
+ noto-fonts-cjk
  npm
  nvidia-dkms
  nvidia-settings
@@ -120,6 +121,7 @@ packages="
  zbar
  zip
 "
+
 sudo pacman --noconfirm --needed -S $packages
 
 sudo systemctl enable fstrim.timer
