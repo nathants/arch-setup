@@ -594,7 +594,9 @@ Timer = Memory_Used_(GPU_0),Yes,3000
  xrdb -merge ~/.Xresources
  feh --bg-scale ~/.bg.png
  nvidia-settings --load-config-only || true
-
+ systemctl --user import-environment DISPLAY XAUTHORITY
+ pkill xbindkeys
+ xbindkeys &
  exec dwm
 ' > ~/.xinitrc
 
@@ -602,6 +604,14 @@ Timer = Memory_Used_(GPU_0),Yes,3000
 Xcursor.theme: default
 Xcursor.size: 16
 ' > ~/.Xresources
+
+echo '
+"/home/nathants/repos/dotfiles/bin/screenshot"
+    Shift + F11
+
+"/home/nathants/repos/dotfiles/bin/screenshot-fullscreen"
+    Shift + F10
+' > ~/.xbindkeysrc
 
     )
 
