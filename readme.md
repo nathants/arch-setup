@@ -1,43 +1,43 @@
-# arch-setup
+# Arch-Setup
 
 ![](https://github.com/nathants/arch-setup/raw/master/arch.gif)
 
-## why
+## Why
 
-bootstrapping a new computer should be easy.
+Bootstrapping a new computer should be easy.
 
-## what
+## What
 
-install arch linux onto an entire disk.
+Install Arch Linux onto an entire disk.
 
-the chosen disk will be COMPLETELY ERASED!
+The chosen disk will be COMPLETELY ERASED!
 
-choose your disk carefully.
+Choose your disk carefully.
 
-this DOES NOT support partitioned install on a single disk with windows.
+This DOES NOT support partitioned install on a single disk with Windows.
 
-this works fine to dual boot with windows as long as there are two disks.
+This works fine to dual boot with Windows as long as there are two disks.
 
-you will use your bios boot disk chooser to choose boot disk at startup.
+You will use your BIOS boot disk chooser to choose boot disk at startup.
 
-## how
+## How
 
-- on linux, make arch [iso](https://archlinux.org/download/) usb
-  - update `if=` and `of=` with real values
+- On Linux, make Arch [ISO](https://archlinux.org/download/) USB
+  - Update `if=` and `of=` with real values
   - `sudo dd bs=4M if=./archlinux-YYYY.MM.DD-x86_64.iso of=/dev/sdX status=progress oflag=sync`
 
-- you can also use [etcher](https://github.com/balena-io/etcher/releases) or [rufus](https://github.com/pbatard/rufus/releases) to make the arch usb from windows
+- You can also use [Etcher](https://github.com/balena-io/etcher/releases) or [Rufus](https://github.com/pbatard/rufus/releases) to make the Arch USB from Windows
 
-- boot into usb:
-  - if nvidia discrete gpu, at grub hit "e", append "nomodeset" to kernel cmdline params, hit "C-x"
+- Boot into USB:
+  - If NVIDIA discrete GPU, at GRUB hit "e", append "nomodeset" to kernel cmdline params, hit "C-x"
   - `pacman -Sy archlinux-keyring`
   - `bash` [arch-install-ext4](./arch-install-ext4)
-  - follow the prompts carefully, if you make a mistake, reboot and try again
+  - Follow the prompts carefully, if you make a mistake, reboot and try again
 
-- boot into arch
+- Boot into Arch
   - `bash` [arch-dev-setup](./arch-dev-setup)
 
-- type `startx`
+- Type `startx`
 
-- the background image is the docs from [better.game](https://better.game) reboot-to-play
-  - note: `shift+f6` does not work, that is reboot-to-play only. to quit everything use `win+shift+q`
+- The background image is the docs from [better.game](https://better.game) reboot-to-play
+  - Note: `shift+f6` does not work, that is reboot-to-play only. To quit everything use `win+shift+q`
