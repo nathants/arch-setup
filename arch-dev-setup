@@ -58,7 +58,9 @@ packages="
  mold
  mousepad
  net-tools
+ noto-fonts
  noto-fonts-cjk
+ noto-fonts-emoji
  npm
  nvidia-dkms
  nvidia-settings
