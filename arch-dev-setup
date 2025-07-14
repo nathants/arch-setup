@@ -7,6 +7,7 @@ df | grep /boot
 
 packages="
  acpi
+ adw-gtk-theme
  alsa-utils
  arandr
  arch-install-scripts
