@@ -10,7 +10,6 @@ packages="
  adw-gtk-theme
  alsa-utils
  arandr
- arch-install-scripts
  automake
  bash-completion
  ccache
@@ -40,6 +39,7 @@ packages="
  hdparm
  htop
  hwinfo
+ inetutils
  iw
  keepassxc
  libpipewire
