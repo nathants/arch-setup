@@ -138,7 +138,7 @@ pacman -S --noconfirm --needed \
     linux-lts \
     linux-lts-headers \
     linux-firmware \
-    nvidia-dkms \
+    nvidia-open \
     nvidia-settings \
     nvidia-utils
 

@@ -63,9 +63,6 @@ packages="
  noto-fonts-cjk
  noto-fonts-emoji
  npm
- nvidia-dkms
- nvidia-settings
- nvidia-utils
  obs-studio
  openimagedenoise
  openresolv
