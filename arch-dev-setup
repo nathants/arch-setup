@@ -176,8 +176,10 @@ sudo chmod +x /usr/local/bin/*
 	    git clone https://github.com/nathants/agr
     fi
 	(
-	    cd agr
-	    sudo python setup.py develop
+        cd agr
+        sudo pacman -S --noconfirm python-argh
+        sudo cp agr/main.py /usr/local/bin/agr
+        sudo chmod +x /usr/local/bin/agr
 	)
 
     if [ ! -d slock ]; then
