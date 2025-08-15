@@ -101,8 +101,10 @@ packages="
  util-linux
  vim
  wget
+ wireguard-tools
  words
  wpa_supplicant
+ xbindkeys
  xclip
  xdotool
  xorg-server
