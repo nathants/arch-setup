@@ -14,6 +14,7 @@ packages="
  bash-completion
  ccache
  clang
+ cmake
  cpupower
  cronie
  cuda
