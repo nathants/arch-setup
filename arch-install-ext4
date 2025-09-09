@@ -143,9 +143,9 @@ pacman -S --noconfirm --needed \
     nvidia-utils
 
 if lscpu | grep Intel; then
-    sudo pacman -S --noconfirm intel-ucode
+    pacman -S --noconfirm intel-ucode
 else
-    sudo pacman -S --noconfirm amd-ucode
+    pacman -S --noconfirm amd-ucode
 fi
 
 echo -n 'what is your username? '
